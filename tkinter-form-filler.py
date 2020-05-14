@@ -19,42 +19,42 @@ def checkfields(letter_template_path)
     
 # Inputs mailmerge fields retrived from the user and saves the output as both Word and PDF files
 def makeLetter(letter_template_path, filled_fields_dict)
-            todays_date = date.today().strftime(%b-%d-%Y) #e.g. Feb-23-2020
-            # note: document object is of class 'mailmerge.MailMerge'
-            document = MailMerge(letter_template_path)
-            document.merge_pages([filled_fields_dict])
-            output_dir = r'output-folder'
-            document_outpath = os.path.join(output_dir, 'word_file_' + todays_date + '.docx')
-            document.write(document_outpath)
-            document.close()
+    todays_date = date.today().strftime(%b-%d-%Y) #e.g. Feb-23-2020
+    # note: document object is of class 'mailmerge.MailMerge'
+    document = MailMerge(letter_template_path)
+    document.merge_pages([filled_fields_dict])
+    output_dir = r'output-folder'
+    document_outpath = os.path.join(output_dir, 'word_file_' + todays_date + '.docx')
+    document.write(document_outpath)
+    document.close()
 
-            # Ensure a table exists in the word file in order to insert the .png signature image within the table
-            doc = Document(document_outpath)
-            tables = doc.tables
-            assert tables, 'You need to insert a 1x1 empty table under the Signature line in the letter template!'
-            p = tables[0].rows[0].cells[0].add_paragraph()
-            r = p.add_run()
+    # Ensure a table exists in the word file in order to insert the .png signature image within the table
+    doc = Document(document_outpath)
+    tables = doc.tables
+    assert tables, 'You need to insert a 1x1 empty table under the Signature line in the letter template!'
+    p = tables[0].rows[0].cells[0].add_paragraph()
+    r = p.add_run()
 
-            # Find the correct signature image filename using fuzzy string matching
-            signatures_folder = r'signatures-folder'
-            # For example purposes, the letter is signed by the manager 'William H Taft' (which retrieves the signature William H Taft.png)
-            highest_name_match = process.extractOne('William H Taft', os.listdir(signatures_folder))
-            print('Best signature filename match to your entry=')
-            print(os.listdir(signatures_folder), highest_name_match)
-            
-            # Insert the signature image into the table and save the word doc with the same name
-            r.add_picture(os.path.join(signatures_folder, highest_name_match[0]), height=Inches(.4))
-            doc.save(document_outpath)
-            
-            # Convert the word file to PDF and save it in the same directory
-            wdFormatPDF = 17
-            in_file = os.path.join(document_outpath)
-            out_file = os.path.join(output_dir, 'word_to_PDF_' + todays_date + '.pdf')
-            word = comtypes.client.CreateObject('Word.Application')
-            doc = word.Documents.Open(in_file)
-            doc.SaveAs(out_file, FileFormat=wdFormatPDF)
-            doc.Close()
-            word.Quit()
+    # Find the correct signature image filename using fuzzy string matching
+    signatures_folder = r'signatures-folder'
+    # For example purposes, the letter is signed by the manager 'William H Taft' (which retrieves the signature William H Taft.png)
+    highest_name_match = process.extractOne('William H Taft', os.listdir(signatures_folder))
+    print('Best signature filename match to your entry=')
+    print(os.listdir(signatures_folder), highest_name_match)
+
+    # Insert the signature image into the table and save the word doc with the same name
+    r.add_picture(os.path.join(signatures_folder, highest_name_match[0]), height=Inches(.4))
+    doc.save(document_outpath)
+
+    # Convert the word file to PDF and save it in the same directory
+    wdFormatPDF = 17
+    in_file = os.path.join(document_outpath)
+    out_file = os.path.join(output_dir, 'word_to_PDF_' + todays_date + '.pdf')
+    word = comtypes.client.CreateObject('Word.Application')
+    doc = word.Documents.Open(in_file)
+    doc.SaveAs(out_file, FileFormat=wdFormatPDF)
+    doc.Close()
+    word.Quit()
 
 # Create the class containing the Tkinter GUI
 class App
@@ -80,7 +80,7 @@ class App
     # When ComboBox letter is selected, a new frame is created with all available mergefields as Entry boxes
     def command(self, event=None)
         for widget in self.frame.winfo_children()
-            print('widget=', widget) # Debugging duplicate frames causing duplicate entrybox texts
+            print('widget=', widget) # Debugging; duplicate frames causing duplicate entrybox texts
             widget.destroy()
         self.frame.destroy() # Destroys frame and contents
         self.frame = Frame(self.root) # Recreates frame
