@@ -1,0 +1,8 @@
+# Used for string matching between user form input text and the signature filename
+fuzzywuzzy==0.17.0
+# For merging fields
+docx-mailmerge==0.4.0
+# For inserting a signature into the 1x1 table
+docx==0.2.4
+# Saving the Word the file
+comtypes==1.1.7
