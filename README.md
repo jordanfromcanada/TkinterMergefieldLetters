@@ -10,6 +10,7 @@ Start with a letter in Word containing merge fields (in Word, Mailings>Insert Me
 ![wordfile_with_fieldcodes](https://user-images.githubusercontent.com/65370643/81995221-f144a780-9606-11ea-81aa-5acbf747edce.JPG)
 
 When the script is run, a Tkinter window allows the user to select a letter from a list of templates.
+
 ![tkinter_combobox](https://user-images.githubusercontent.com/65370643/81995115-ac207580-9606-11ea-82ca-000692596095.JPG)
 
 
