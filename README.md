@@ -1,5 +1,7 @@
 # TkinterMergefieldLetters
-A Python script using a Tkinter GUI to quickly generate Word and PDF letters from a Word template containing mergefields.
+A Python script using Tkinter GUI to quickly generate Word and PDF letters from a Word template containing merge fields.
+
+**Example use case:** a law office payroll department frequently generates letters for hiring, payroll increases, stipends, and memos from 4 different letter templates. Instead of manually opening each word template, entering the appropriate fields carefully to avoid typos, and saving both Word and PDF files in the correct location, using Tkinter eliminates typos and enables letter creation in under 30 seconds.
 
 Start with a letter in Word containing merge fields (in Word, Mailings>Insert Merge Field; or press `ALT + F9` to view Field Codes and type your merge fields in the format `{MERGEFIELD name-of-field \m \* MERGEFORMAT}`)
 ![wordfile1](https://user-images.githubusercontent.com/65370643/81995204-e722a900-9606-11ea-98dc-ee28c4546f3e.JPG)
@@ -39,3 +41,8 @@ r.add_picture('signature-filepath.png', height=Inches(.4)) #0.4 Inches works wel
 doc.save('output-filepath.docx')
 ```
 ![sig_inserted_to_pdf](https://user-images.githubusercontent.com/65370643/81995560-e9393780-9607-11ea-9bb3-a84372e21b4f.JPG)
+
+# To Do / Wish list
+- extend functionality using either PySimpleGUI (for less code) or emulate functionality in a local Flask web app
+- add save file location default path
+- create database to store letters generated with associated fields in order to quickly recreate a letter for the same recipient
